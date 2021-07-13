@@ -23,7 +23,9 @@ app.use(express.static(__dirname + '/static'));
 app.use('/v1', router);
 
 io.on('connection', (socket) => {
-    console.log('a user connected');
+    socket.on('chat message', (msg) => {
+        console.log('message: ' + msg);
+    });
 });
 
 server.listen(PORT, () => {
