@@ -23,9 +23,15 @@ app.use(express.static(__dirname + '/static'));
 app.use('/v1', router);
 
 io.on('connection', (socket) => {
+    io.emit('someone in');
+
     socket.on('chat message', (msg) => {
         io.emit('chat message', msg)
-        console.log('message: ' + msg);
+        // console.log('message: ' + msg);
+    });
+
+    socket.on('disconnect', (msg) => {
+        io.emit('newDisconnect', msg)
     });
 });
 

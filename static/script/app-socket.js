@@ -6,6 +6,13 @@ const app = {
         const input = document.querySelector('#input');
         const messages = document.querySelector('#messages');
 
+        socket.on('someone in', (msg) => {
+            const someoneLi = document.createElement('li');
+            msg = 'Someone just connected';
+            someoneLi.textContent = msg;  
+            messages.appendChild(someoneLi);          
+        });
+
         form.addEventListener('submit', (event) => {
             event.preventDefault();
             if (input.value) {
@@ -19,6 +26,13 @@ const app = {
             item.textContent = msg;
             messages.appendChild(item);
             window.scrollTo(0, document.body.scrollHeight);
+        });
+
+        socket.on('newDisconnect', (msg) => {
+            const someoneOutLi = document.createElement('li');
+            msg = 'Someone just disconnected';
+            someoneOutLi.textContent = msg;  
+            messages.appendChild(someoneOutLi);
         });
     }
 };
